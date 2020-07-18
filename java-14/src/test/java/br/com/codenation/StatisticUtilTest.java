@@ -10,7 +10,7 @@ public class StatisticUtilTest {
 	public void testAverage() {
 		assertEquals(3, StatisticUtil.average(new int[] {1,2,3,4,5}));
 
-		assertEquals(1, StatisticUtil.average(new int[] {1,2,5,10,2,3,4,5}));
+		assertEquals(4, StatisticUtil.average(new int[] {1,2,5,10,2,3,4,5}));
 	}
 
 	@Test
