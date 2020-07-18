@@ -18,7 +18,7 @@ public class StatisticUtil {
 
 		average = total / elements.length;
 
-		return average;
+		return (int)average;
 	}
 
 	public static int mode(int[] elements) {
