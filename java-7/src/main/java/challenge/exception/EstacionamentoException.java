@@ -1,4 +1,4 @@
-package challenge;
+package challenge.exception;
 
 public class EstacionamentoException extends RuntimeException {
 
