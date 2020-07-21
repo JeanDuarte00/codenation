@@ -1,4 +1,10 @@
-package challenge;
+package challenge.model;
+
+import challenge.enumType.Cor;
+import challenge.exception.EstacionamentoException;
+import challenge.exception.MotoristaException;
+
+import java.util.Objects;
 
 import java.util.Objects;
 
@@ -10,10 +16,11 @@ public class Carro {
 
     private final Cor cor;
 
-    private Carro(Motorista motorista, String placa, Cor cor) {
+    private Carro(Motorista motorista, String placa, Cor cor) throws NullPointerException {
         this.motorista = motorista;
         this.placa = placa;
         this.cor = cor;
+        CarroHandler.handleCarro(this);
     }
 
     public Motorista getMotorista() {
@@ -73,16 +80,19 @@ public class Carro {
         }
 
         public CarroBuilder withMotorista(Motorista motorista) {
+            CarroHandler.handleMotorista(motorista);
             this.motorista = motorista;
             return this;
         }
 
-        public CarroBuilder withPlaca(String placa) {
+        public CarroBuilder withPlaca(String placa) throws NullPointerException {
+            CarroHandler.handlePlaca(placa);
             this.placa = placa;
             return this;
         }
 
-        public CarroBuilder withCor(Cor cor) {
+        public CarroBuilder withCor(Cor cor) throws NullPointerException {
+            CarroHandler.handleCor(cor);
             this.cor = cor;
             return this;
         }
@@ -90,5 +100,33 @@ public class Carro {
         public Carro build() {
             return new Carro(motorista, placa, cor);
         }
+    }
+
+    public static class CarroHandler {
+        private static void handleCarro (Carro carro) throws NullPointerException {
+
+            handleMotorista(carro.getMotorista());
+            handlePlaca(carro.getPlaca());
+            handleCor(carro.getCor());
+        }
+
+        private static void handleMotorista (Motorista motorista) {
+            if (motorista == null) {
+                throw new EstacionamentoException("Não pode entrar carro autonomo");
+            }
+        }
+
+        private static void handlePlaca (String placa) throws NullPointerException {
+            if (placa.isEmpty()) {
+                throw new NullPointerException("Deve passar a placa do carro");
+            }
+        }
+
+        private static void handleCor (Cor cor) throws NullPointerException {
+            if (cor == null) {
+                throw new NullPointerException("Precisa passar uma cor");
+            }
+        }
+
     }
 }

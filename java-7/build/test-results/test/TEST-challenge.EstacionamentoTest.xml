@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite name="challenge.EstacionamentoTest" tests="13" skipped="0" failures="13" errors="0" timestamp="2020-07-21T01:44:10" hostname="WINAPzTvX9WSsny" time="0.036">
   <properties/>
   <testcase name="naoDeveTerCarroAutonomo" classname="challenge.EstacionamentoTest" time="0.016">
@@ -622,6 +623,11 @@
 	at java.base/java.lang.Thread.run(Thread.java:834)
 </failure>
   </testcase>
+=======
+<testsuite name="challenge.EstacionamentoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-18T06:26:53" hostname="Riok" time="0.003">
+  <properties/>
+  <testcase name="naoDeveUltrapassarEstacionamento" classname="challenge.EstacionamentoTest" time="0.003"/>
+>>>>>>> c5b38261b88a7a77c2e9f99eb1334c3faec4ae4d
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
