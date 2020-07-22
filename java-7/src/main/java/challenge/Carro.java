@@ -1,8 +1,4 @@
-package challenge.model;
-
-import challenge.enumType.Cor;
-import challenge.exception.EstacionamentoException;
-import challenge.exception.MotoristaException;
+package challenge;
 
 import java.util.Objects;
 
@@ -14,7 +10,7 @@ public class Carro {
 
     private final Cor cor;
 
-    private Carro(Motorista motorista, String placa, Cor cor) throws NullPointerException {
+    private Carro(Motorista motorista, String placa, Cor cor) throws NullPointerException, EstacionamentoException {
         this.motorista = motorista;
         this.placa = placa;
         this.cor = cor;
@@ -77,7 +73,7 @@ public class Carro {
         private CarroBuilder() {
         }
 
-        public CarroBuilder withMotorista(Motorista motorista) {
+        public CarroBuilder withMotorista(Motorista motorista) throws EstacionamentoException {
             CarroHandler.handleMotorista(motorista);
             this.motorista = motorista;
             return this;
@@ -101,14 +97,15 @@ public class Carro {
     }
 
     public static class CarroHandler {
-        private static void handleCarro (Carro carro) throws NullPointerException {
+        private static void handleCarro (Carro carro) throws NullPointerException, EstacionamentoException {
 
-            handleMotorista(carro.getMotorista());
-            handlePlaca(carro.getPlaca());
             handleCor(carro.getCor());
+            handlePlaca(carro.getPlaca());
+            handleMotorista(carro.getMotorista());
+
         }
 
-        private static void handleMotorista (Motorista motorista) {
+        private static void handleMotorista (Motorista motorista) throws EstacionamentoException {
             if (motorista == null) {
                 throw new EstacionamentoException("Não pode entrar carro autonomo");
             }

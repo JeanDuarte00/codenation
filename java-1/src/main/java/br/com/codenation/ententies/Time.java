@@ -1,6 +1,9 @@
 package br.com.codenation.ententies;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Time {
     private Long id;
@@ -8,6 +11,9 @@ public class Time {
     private LocalDate dataCriacao;
     private String corUniformePrincipal;
     private String corUniformeSecundario;
+    private Jogador captao;
+
+    List<Jogador> listaJogador;
 
     public Time(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal, String corUniformeSecundario) {
         this.id = id;
@@ -15,6 +21,12 @@ public class Time {
         this.dataCriacao = dataCriacao;
         this.corUniformePrincipal = corUniformePrincipal;
         this.corUniformeSecundario = corUniformeSecundario;
+        this.captao = null;
+        this.listaJogador = new ArrayList<>();
+    }
+
+    public void adicionarJogador (Jogador jogador) {
+        this.listaJogador.add(jogador);
     }
 
     public Long getId() {
@@ -55,5 +67,21 @@ public class Time {
 
     public void setCorUniformeSecundario(String corUniformeSecundario) {
         this.corUniformeSecundario = corUniformeSecundario;
+    }
+
+    public List<Jogador> getListaJogador() {
+        return listaJogador;
+    }
+
+    public void setListaJogador(List<Jogador> listaJogador) {
+        this.listaJogador = listaJogador;
+    }
+
+    public Jogador getCaptao() {
+        return captao;
+    }
+
+    public void setCaptao(Jogador captao) {
+        this.captao = captao;
     }
 }

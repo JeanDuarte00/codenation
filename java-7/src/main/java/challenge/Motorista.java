@@ -1,6 +1,7 @@
-package challenge.model;
+package challenge;
 
-import challenge.exception.MotoristaException;
+import challenge.EstacionamentoException;
+import challenge.MotoristaException;
 import java.util.Objects;
 
 public class Motorista {
@@ -13,7 +14,7 @@ public class Motorista {
 
     private final String habilitacao;
 
-    private Motorista(String nome, int idade, int pontos, String habilitacao) throws NullPointerException, IllegalArgumentException {
+    private Motorista(String nome, int idade, int pontos, String habilitacao) throws NullPointerException, IllegalArgumentException, EstacionamentoException {
         this.nome = nome;
         this.idade = idade;
         this.pontos = pontos;
@@ -59,11 +60,11 @@ public class Motorista {
     @Override
     public String toString() {
         return "Motorista{" +
-          "nome='" + nome + '\'' +
-          ", idade=" + idade +
-          ", pontos=" + pontos +
-          ", habilitacao='" + habilitacao + '\'' +
-          '}';
+                "nome='" + nome + '\'' +
+                ", idade=" + idade +
+                ", pontos=" + pontos +
+                ", habilitacao='" + habilitacao + '\'' +
+                '}';
     }
 
     public static MotoristaBuilder builder() {
@@ -115,12 +116,13 @@ public class Motorista {
     }
 
     public static class MotoristaHandler {
-        private static void handleMotorista (Motorista motorista) throws NullPointerException , IllegalArgumentException {
+        private static void handleMotorista (Motorista motorista) throws NullPointerException , IllegalArgumentException, EstacionamentoException {
 
-            handleIdade(motorista.getIdade());
             handleNome(motorista.getNome());
-            handlePontos(motorista.getPontos());
             handleHabilitacao(motorista.getHabilitacao());
+            handleIdade(motorista.getIdade());
+            handlePontos(motorista.getPontos());
+
 
         }
 
@@ -130,21 +132,21 @@ public class Motorista {
             }
         }
 
-        private static void handleIdade (int idade) throws IllegalArgumentException {
+        private static void handleIdade (int idade) throws IllegalArgumentException, EstacionamentoException {
             if (idade < 0) {
                 throw new IllegalArgumentException("Idade invalida");
             }
             else if (idade < 18) {
-                throw new IllegalArgumentException("O motorista não pode ser menor de idade");
+                throw new EstacionamentoException("O motorista não pode ser menor de idade");
             }
         }
 
-        private static void handlePontos (int pontos) throws NullPointerException {
+        private static void handlePontos (int pontos) throws IllegalArgumentException, EstacionamentoException {
             if (pontos < 0) {
-                throw new NullPointerException("Pontos invalidos");
+                throw new IllegalArgumentException("Pontos invalidos");
             }
             else if (pontos > 20) {
-                throw new NullPointerException("O motorista não pode dirigir, pontos na carteira acima do limite");
+                throw new EstacionamentoException("O motorista não pode dirigir, pontos na carteira acima do limite");
             }
         }
 

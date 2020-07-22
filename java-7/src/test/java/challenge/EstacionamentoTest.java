@@ -1,18 +1,9 @@
 package challenge;
 
-
-import challenge.enumType.Cor;
-import challenge.exception.EstacionamentoException;
-import challenge.model.Carro;
-import challenge.model.Estacionamento;
-import challenge.model.Motorista;
 import org.junit.Before;
 import org.junit.Test;
-
 import static java.util.concurrent.ThreadLocalRandom.current;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class EstacionamentoTest {
 
@@ -26,7 +17,7 @@ public class EstacionamentoTest {
     @Test(expected = NullPointerException.class)
     public void deveRetornarErroQuandoMotoristaNaoTemHabilitacao() {
         Motorista.builder().withNome("Ada")
-                .withIdade(17)
+                .withIdade(18)
                 .withPontos(10)
                 .build();
     }
@@ -34,7 +25,7 @@ public class EstacionamentoTest {
     @Test(expected = NullPointerException.class)
     public void deveRetornarErroQuandoMotoristaNaoTemNome() {
         Motorista.builder()
-                .withIdade(17)
+                .withIdade(18)
                 .withPontos(10)
                 .withHabilitacao("12213")
                 .build();
@@ -72,32 +63,27 @@ public class EstacionamentoTest {
 
     @Test(expected = EstacionamentoException.class)
     public void naoDeveTerMotoristaDeMenor() {
-         try{
-            Motorista motorista = Motorista.builder().withNome("Ada")
-                    .withIdade(17)
-                    .withPontos(10)
-                    .withHabilitacao("1231")
-                    .build();
-            Carro carro = Carro.builder().withCor(Cor.PRETO).withPlaca("123").withMotorista(motorista).build();
-            estacionamento.estacionar(carro);
-         } catch (IllegalArgumentException | NullPointerException err ){
-            throw new EstacionamentoException("Motorista do carro é de menor de idade");
-         }
+
+        Motorista motorista = Motorista.builder().withNome("Ada")
+                .withIdade(17)
+                .withPontos(10)
+                .withHabilitacao("1231")
+                .build();
+        Carro carro = Carro.builder().withCor(Cor.PRETO).withPlaca("123").withMotorista(motorista).build();
+        estacionamento.estacionar(carro);
+
     }
 
     @Test(expected = EstacionamentoException.class)
     public void naoDeveEstacionarMotoristaSemPontos() {
-        try{
-            Motorista motorista = Motorista.builder().withNome("Ada")
-                    .withIdade(25)
-                    .withPontos(30) // maximo de 20 pontos
-                    .withHabilitacao("1231")
-                    .build();
-            Carro carro = Carro.builder().withCor(Cor.BRANCO).withPlaca("123").withMotorista(motorista).build();
-            estacionamento.estacionar(carro);
-        } catch (IllegalArgumentException | NullPointerException err ){
-            throw new EstacionamentoException("Não pode passar o limite de 20 pontos");
-        }
+        Motorista motorista = Motorista.builder().withNome("Ada")
+                .withIdade(25)
+                .withPontos(30) // maximo de 20 pontos
+                .withHabilitacao("1231")
+                .build();
+        Carro carro = Carro.builder().withCor(Cor.BRANCO).withPlaca("123").withMotorista(motorista).build();
+        estacionamento.estacionar(carro);
+
     }
 
     @Test
@@ -149,10 +135,8 @@ public class EstacionamentoTest {
         }
 
         assertEquals(10, estacionamento.carrosEstacionados());
-        assertTrue(estacionamento.carroEstacionado(carroBranco));
+        assertFalse(estacionamento.carroEstacionado(carroBranco));
     }
-
-    //TODO: continuar daqui para baixo
 
     @Test
     public void casoPrimeiroMotoristaSejaSeniorEleNaoDeveSair() {
