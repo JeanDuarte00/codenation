@@ -32,7 +32,7 @@ public class DesafioMeuTimeApplicationSimpleTest {
         final DesafioMeuTimeApplication desafioMeuTimeApplication = new DesafioMeuTimeApplication();
         desafioMeuTimeApplication.incluirTime(1l, "Teste1", LocalDate.now(), "branco", "branco");
         desafioMeuTimeApplication.incluirJogador(1l, 1l, "Jogador", LocalDate.now(), 1, BigDecimal.TEN);
-        desafioMeuTimeApplication.definirCapitao(1l);
+        desafioMeuTimeApplication.definirCapitao(1l, 1l);
         assertEquals(new Long(1L), desafioMeuTimeApplication.buscarCapitaoDoTime(1L));
     }
 
@@ -41,9 +41,10 @@ public class DesafioMeuTimeApplicationSimpleTest {
         final DesafioMeuTimeApplication desafioMeuTimeApplication = new DesafioMeuTimeApplication();
         desafioMeuTimeApplication.incluirTime(1l, "Teste1", LocalDate.now(), "branco", "branco");
         desafioMeuTimeApplication.incluirJogador(1l, 1l, "Jogador", LocalDate.now(), 1, BigDecimal.TEN);
-        assertEquals("Jogador", desafioMeuTimeApplication.buscarNomeJogador(1L));
+        assertEquals("Jogador", desafioMeuTimeApplication.buscarNomeJogador( 1l, 1L));
     }
 
+    // TODO: from here down
     @Test
     public void deveBuscarNomeTime(){
         final DesafioMeuTimeApplication desafioMeuTimeApplication = new DesafioMeuTimeApplication();

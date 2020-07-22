@@ -1,6 +1,7 @@
 package challenge;
 
-
+import challenge.EstacionamentoException;
+import challenge.MotoristaException;
 import java.util.Objects;
 
 public class Motorista {
@@ -13,11 +14,14 @@ public class Motorista {
 
     private final String habilitacao;
 
-    private Motorista(String nome, int idade, int pontos, String habilitacao) {
+    private Motorista(String nome, int idade, int pontos, String habilitacao) throws NullPointerException, IllegalArgumentException, EstacionamentoException {
         this.nome = nome;
         this.idade = idade;
         this.pontos = pontos;
         this.habilitacao = habilitacao;
+
+        MotoristaHandler.handleMotorista(this);
+
     }
 
     public String getNome() {
@@ -35,7 +39,6 @@ public class Motorista {
     public String getHabilitacao() {
         return habilitacao;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -83,21 +86,25 @@ public class Motorista {
         }
 
         public MotoristaBuilder withNome(String nome) {
+            MotoristaHandler.handleNome(nome);
             this.nome = nome;
             return this;
         }
 
         public MotoristaBuilder withIdade(int idade) {
+            MotoristaHandler.handleIdade(idade);
             this.idade = idade;
             return this;
         }
 
         public MotoristaBuilder withPontos(int pontos) {
+            MotoristaHandler.handlePontos(pontos);
             this.pontos = pontos;
             return this;
         }
 
         public MotoristaBuilder withHabilitacao(String habilitacao) {
+            MotoristaHandler.handleHabilitacao(habilitacao);
             this.habilitacao = habilitacao;
             return this;
         }
@@ -105,6 +112,48 @@ public class Motorista {
 
         public Motorista build() {
             return new Motorista(nome, idade, pontos, habilitacao);
+        }
+    }
+
+    public static class MotoristaHandler {
+        private static void handleMotorista (Motorista motorista) throws NullPointerException , IllegalArgumentException, EstacionamentoException {
+
+            handleNome(motorista.getNome());
+            handleHabilitacao(motorista.getHabilitacao());
+            handleIdade(motorista.getIdade());
+            handlePontos(motorista.getPontos());
+
+
+        }
+
+        private static void handleNome (String nome) throws NullPointerException {
+            if (nome.isEmpty()) {
+                throw new NullPointerException("Deve passar o nome do motorista");
+            }
+        }
+
+        private static void handleIdade (int idade) throws IllegalArgumentException, EstacionamentoException {
+            if (idade < 0) {
+                throw new IllegalArgumentException("Idade invalida");
+            }
+            else if (idade < 18) {
+                throw new EstacionamentoException("O motorista não pode ser menor de idade");
+            }
+        }
+
+        private static void handlePontos (int pontos) throws IllegalArgumentException, EstacionamentoException {
+            if (pontos < 0) {
+                throw new IllegalArgumentException("Pontos invalidos");
+            }
+            else if (pontos > 20) {
+                throw new EstacionamentoException("O motorista não pode dirigir, pontos na carteira acima do limite");
+            }
+        }
+
+        private static void handleHabilitacao (String nome) throws MotoristaException {
+            if (nome.isEmpty()) {
+                throw new NullPointerException("O motorista deve ter habilitação");
+            }
         }
     }
 }

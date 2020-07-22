@@ -1,6 +1,4 @@
-package challenge.model;
-
-import challenge.exception.EstacionamentoException;
+package challenge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +6,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Estacionamento {
 
+    private final int idadeIdoso = 60;
     private final int  limiteEstacionamento = 10;
     private List<Carro> carrosEstacionados = new ArrayList<>();
 
     public void estacionar(Carro carro) throws EstacionamentoException {
 
-      this.isFree();
-      this.isYounger(carro);
-      this.estacionarMaisUmCarro(carro);
-
+        this.liberarVaga();
+        this.isFree();
+        this.isYounger(carro);
+        this.estacionarMaisUmCarro(carro);
 
     }
 
@@ -36,7 +35,10 @@ public class Estacionamento {
     }
 
     private boolean canPark () {
-        return true;
+        if (this.carrosEstacionados.size() < this.limiteEstacionamento) {
+            return true;
+        }
+        return false;
     }
 
     private void estacionarMaisUmCarro (Carro carro) {
@@ -57,5 +59,28 @@ public class Estacionamento {
             }
         });
         return exist.get();
+    }
+
+    public void liberarVaga () throws EstacionamentoException {
+        Carro carroQueSaiu = null;
+        if ( !this.canPark() ) {
+            int index = 0;
+            for (Carro carro: carrosEstacionados) {
+                if ( !isSenior(carro.getMotorista()) ){
+                    carroQueSaiu = this.carrosEstacionados.get(index);
+                    this.carrosEstacionados.remove(index);
+                    return;
+                }
+                index++;
+            }
+            throw new EstacionamentoException("Todos os motoristas são Seniores, portanto, sem vaga");
+        }
+    }
+
+    private boolean isSenior (Motorista motorista) {
+        if (motorista.getIdade() >= this.idadeIdoso ){
+            return true;
+        }
+        return false;
     }
 }

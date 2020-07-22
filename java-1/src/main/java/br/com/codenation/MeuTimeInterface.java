@@ -10,11 +10,11 @@ interface MeuTimeInterface {
 
     void incluirJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade, BigDecimal salario);
 
-    void definirCapitao(Long idJogador);
+    void definirCapitao(Long idTime, Long idJogador);
 
     Long buscarCapitaoDoTime(Long idTime);
 
-    String buscarNomeJogador(Long idJogador);
+    String buscarNomeJogador(Long idTime, Long idJogador);
 
     String buscarNomeTime(Long idTime);
 
