@@ -24,8 +24,8 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 		//throw new UnsupportedOperationException();
 	}
 
-	public void definirCapitao(Long idTime, Long idJogador) {
-		this.timeService.definirCaptao(idTime, idJogador);
+	public void definirCapitao(Long idJogador) {
+		this.timeService.definirCaptao(idJogador);
 		//throw new UnsupportedOperationException();
 	}
 
@@ -34,13 +34,14 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 		//throw new UnsupportedOperationException();
 	}
 
-	public String buscarNomeJogador(Long idTime, Long idJogador) {
-		return this.timeService.buscarJogadorById(idTime, idJogador).getNome();
+	public String buscarNomeJogador(Long idJogador) {
+		return this.timeService.buscarJogadorById(idJogador).getNome();
 		//throw new UnsupportedOperationException();
 	}
 
 	public String buscarNomeTime(Long idTime) {
-		throw new UnsupportedOperationException();
+		return this.timeService.getTimeName(idTime);
+		//throw new UnsupportedOperationException();
 	}
 
 	public List<Long> buscarJogadoresDoTime(Long idTime) {
@@ -49,11 +50,13 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	}
 
 	public Long buscarMelhorJogadorDoTime(Long idTime) {
-		throw new UnsupportedOperationException();
+		return this.timeService.getMelhorJogador(idTime);
+		//throw new UnsupportedOperationException();
 	}
 
 	public Long buscarJogadorMaisVelho(Long idTime) {
-		throw new UnsupportedOperationException();
+		return this.timeService.getjogadorMaisVelho(idTime);
+		//throw new UnsupportedOperationException();
 	}
 
 	/***
@@ -66,15 +69,18 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	}
 
 	public Long buscarJogadorMaiorSalario(Long idTime) {
-		throw new UnsupportedOperationException();
+		return this.timeService.getJogadorMaisCaro(idTime);
+		//throw new UnsupportedOperationException();
 	}
 
 	public BigDecimal buscarSalarioDoJogador(Long idJogador) {
-		throw new UnsupportedOperationException();
+		return this.timeService.getSalarioJogador(idJogador);
+		//throw new UnsupportedOperationException();
 	}
 
 	public List<Long> buscarTopJogadores(Integer top) {
-		throw new UnsupportedOperationException();
+		return this.timeService.getTopNJogadores(top);
+		//throw new UnsupportedOperationException();
 	}
 
 }
